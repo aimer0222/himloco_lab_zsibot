@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-本项目是基于 **HimLoco** 算法的四足机器人步态控制器，使用 **Isaac Lab** 进行强化学习训练，并支持 **Mujoco Sim2Sim** 验证和 **Sim2Real** 真机部署。
+本项目是基于 **HimLoco** 算法的四足机器人步态控制器，代码参考 **HimLoco_lab**项目进行开发 ，使用 **Isaac Lab** 进行强化学习训练，并支持 **Mujoco Sim2Sim** 验证和 **Sim2Real** 真机部署。
 
 针对 **ZsiBot (ZSL1)** 机器人模型进行了适配和优化。
 
@@ -174,6 +174,6 @@ Mujoco 模型位于 `zsibot_mujoco/robot/zsl1_description/xml/`：
 ## 参考资源
 
 - [HimLoco](https://github.com/RoboLoco/HimLoco)
+- [HimLoco_lab](https://github.com/IsaacZH/himloco_lab)
 - [Isaac Lab](https://isaac-sim.github.io/IsaacLab/)
-- [unitree_rl_lab](https://github.com/unitreerobotics/unitree_rl_lab)
 - [Mujoco](https://mujoco.org/)
