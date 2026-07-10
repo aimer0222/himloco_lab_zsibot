@@ -1,0 +1,91 @@
+paths:
+  scene_xml: "/home/ws/nvidia/himloco_lab/zsibot_mujoco/robot/zsl1_description/urdf/zsibot_scene.xml"
+  policy_path: "/home/ws/nvidia/himloco_lab/logs/himloco_rsl_rl/go2_rough/2026-05-18_00-26-02/exported/policy.pt"
+
+
+joint_names:
+  # Order must match training (policy obs/action ordering).
+  # - FAR_ABAD_JOINT
+  # - FAR_HIP_JOINT
+  # - FAR_KNEE_JOINT
+
+  # - FBL_ABAD_JOINT
+  # - FBL_HIP_JOINT
+  # - FBL_KNEE_JOINT
+
+  # - RAR_ABAD_JOINT
+  # - RAR_HIP_JOINT
+  # - RAR_KNEE_JOINT
+
+  # - RBL_ABAD_JOINT
+  # - RBL_HIP_JOINT
+  # - RBL_KNEE_JOINT
+
+
+  - FAR_ABAD_JOINT
+  - FBL_ABAD_JOINT
+  - RAR_ABAD_JOINT
+  - RBL_ABAD_JOINT
+
+  - FAR_HIP_JOINT
+  - FBL_HIP_JOINT
+  - RAR_HIP_JOINT
+  - RBL_HIP_JOINT
+
+  - FAR_KNEE_JOINT
+  - FBL_KNEE_JOINT
+  - RAR_KNEE_JOINT
+  - RBL_KNEE_JOINT
+
+
+
+default_dof_pos: [0.0, 0.0, 0.0, 0.0,
+                  0.8, 0.8, 0.8, 0.8,
+                  -1.5, -1.5, -1.5, -1.5,]
+
+base_init_pos: [0.0, 0.0, 0.40]
+base_init_quat: [1.0, 0.0, 0.0, 0.0]
+
+command_signs:
+  x: -1.0
+  y: -1.0
+  yaw: -1.0
+
+command_filter_alpha: 0.35
+command_dead_zone: 0.03
+zero_command_policy_mode: hold_default
+zero_command_threshold: 0.05
+debug_print_interval: 10
+debug_joint_details: true
+
+command_axis_remap:
+  x:
+    source: x
+    sign: -1.0
+  y:
+    source: y
+    sign: -1.0
+  yaw:
+    source: yaw
+    sign: -1.0
+
+
+p_gains: [20.0, 20.0, 20.0]
+d_gains: [0.7, 0.7, 0.7]
+actions_scale: 0.25
+
+scale_factors:
+  scale_lin_vel: 1.0
+  scale_ang_vel: 0.25
+  scale_dof_pos: 1.0
+  scale_dof_vel: 0.05
+
+
+sim_steps_per_loop: 4
+timestep: 0.005
+warmup_steps: 200
+
+
+num_obs_current: 45
+num_obs_encoder: 270
+num_obs: 64

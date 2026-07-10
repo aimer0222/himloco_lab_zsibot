@@ -1,0 +1,24 @@
+# Note: These files are kept for development purposes only.
+!tools/launch.template.json
+!tools/settings.template.json
+!tools/setup_vscode.py
+!extensions.json
+!tasks.json
+
+# Ignore all other files
+.python.env
+*.json
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+*.swp

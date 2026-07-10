@@ -1,0 +1,218 @@
+<mujoco model="DOG">
+  <compiler angle="radian" meshdir="../meshes/" autolimits="true" />
+  <option cone="elliptic" impratio="100" timestep="0.005" />
+
+  <default>
+    <default class="zsibot">
+      <geom friction="0.4" margin="0.001" condim="1" />
+      <joint damping="0.1" armature="0.01" frictionloss="0.2" />
+
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="collision">
+        <geom group="3" />
+        <default class="foot">
+          <geom priority="1" condim="6" friction="0.8 0.02 0.01" />
+        </default>
+
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <mesh name="BASE_LINK" file="BASE_LINK.STL"/>
+    <mesh name="FL_ABAD_LINK" file="FL_ABAD_LINK.STL"/>
+    <mesh name="FL_HIP_LINK" file="FL_HIP_LINK.STL"/>
+    <mesh name="FL_KNEE_LINK" file="FL_KNEE_LINK.STL"/>
+    <mesh name="FL_FOOT_LINK" file="FL_FOOT_LINK.STL"/>
+    <mesh name="FR_ABAD_LINK" file="FR_ABAD_LINK.STL"/>
+    <mesh name="FR_HIP_LINK" file="FR_HIP_LINK.STL"/>
+    <mesh name="FR_KNEE_LINK" file="FR_KNEE_LINK.STL"/>
+    <mesh name="FR_FOOT_LINK" file="FR_FOOT_LINK.STL"/>
+    <mesh name="RR_ABAD_LINK" file="RR_ABAD_LINK.STL"/>
+    <mesh name="RR_HIP_LINK" file="RR_HIP_LINK.STL"/>
+    <mesh name="RR_KNEE_LINK" file="RR_KNEE_LINK.STL"/>
+    <mesh name="RR_FOOT_LINK" file="RR_FOOT_LINK.STL"/>
+    <mesh name="RL_ABAD_LINK" file="RL_ABAD_LINK.STL"/>
+    <mesh name="RL_HIP_LINK" file="RL_HIP_LINK.STL"/>
+    <mesh name="RL_KNEE_LINK" file="RL_KNEE_LINK.STL"/>
+    <mesh name="RL_FOOT_LINK" file="RL_FOOT_LINK.STL"/>
+  </asset>
+
+  <worldbody>
+    <body name="base_link" pos="0 0 0.6" childclass="zsibot">
+      <inertial pos="0.0054244583 -0.00036330247 0.0060908623" euler="0 0 0"
+        mass="6.2683759"
+        diaginertia="0.02735913 0.08498468 0.09922355"/>/>
+      <freejoint />
+        <camera name="RayCasterCamera" pos="0.31 0 0.02" xyaxes="0 -1 0 0 0 1" fovy="80"/>
+        <camera name="RayCaster" pos="0. 0 0" xyaxes="0 -1 0 1 0 0"/>
+      
+
+      <site name="imu" pos="0 0 0.04232" />
+      <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BASE_LINK" class="visual" />
+      <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BASE_LINK" />
+      <body name="FL_ABAD_LINK" pos="0.17449 0.062 0">
+        <inertial pos="-0.0270745 -0.0154588 9.41679e-06" quat="0.600186 0.60017 0.373963 0.373798" mass="0.454098" diaginertia="0.000562658 0.000541021 0.00017585"/>
+        <joint name="FBL_ABAD_JOINT" pos="0 0 0" axis="1 0 0" range="-0.4887 0.4887"/>
+        <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FL_ABAD_LINK" class="visual"/>
+        <body name="FL_HIP_LINK" pos="0 0.097412 0">
+          <inertial pos="-0.00334388 -0.042909 -0.0216077" quat="0.961876 0.267908 0.0543528 0.00804932" mass="1.50165" diaginertia="0.00700226 0.00563861 0.0023263"/>
+          <joint name="FBL_HIP_JOINT" pos="0 0 0" axis="0 1 0" range="-1.1519 2.967"/>
+          <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FL_HIP_LINK" class="visual"/>
+          <geom size="0.02 0.01 0.1" pos="-0.01 0 -0.07" quat="0.995004 0 0.0998334 0" type="box" rgba="0.75294 0.75294 0.75294 1" class="collision"/>
+          <body name="FL_KNEE_LINK" pos="0 0 -0.2">
+            <inertial pos="0.00484121 0 -0.122269" quat="0.707051 0.00673184 0.00672643 0.707099" mass="0.270529" diaginertia="0.00247753 0.00243753 7.93221e-05"/>
+            <joint name="FBL_KNEE_JOINT" pos="0 0 0" axis="0 1 0" range="-2.723 -0.602"/>
+            <geom type="mesh" rgba="0.49804 0.49804 0.49804 1" mesh="FL_KNEE_LINK" class="visual"/>
+            <geom size="0.01 0.01 0.07" pos="0.015 0 -0.05" quat="0.997551 0 -0.0699428 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom size="0.01 0.01 0.02" pos="0.028 0 -0.16" quat="0.997189 0 0.0749297 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom pos="0 0 -0.21366" quat="1 0 0 0" type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FL_FOOT_LINK" class="visual"/>
+            <geom size="0.03" pos="0 0 -0.21366" quat="0.707107 0.707107 0 0" rgba="0.75294 0.75294 0.75294 1" class="foot"/>
+          </body>
+        </body>
+      </body>
+      <body name="FR_ABAD_LINK" pos="0.17449 -0.062 0">
+        <inertial pos="-0.0270745 0.0154588 -9.41679e-06" quat="0.373963 0.373798 0.600186 0.60017" mass="0.454098" diaginertia="0.000562658 0.000541021 0.00017585"/>
+        <joint name="FAR_ABAD_JOINT" pos="0 0 0" axis="1 0 0" range="-0.4887 0.4887"/>
+        <geom type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="FR_ABAD_LINK" class="visual"/>
+        <body name="FR_HIP_LINK" pos="0 -0.097399 0">
+          <inertial pos="-0.00342445 0.0427303 -0.0223257" quat="0.964115 -0.259871 0.0534872 -0.00934672" mass="1.50799" diaginertia="0.00720259 0.00582228 0.00234676"/>
+          <joint name="FAR_HIP_JOINT" pos="0 0 0" axis="0 1 0" range="-1.1519 2.967"/>
+          <geom type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="FR_HIP_LINK" class="visual"/>
+          <geom size="0.02 0.01 0.1" pos="-0.01 0 -0.07" quat="0.995004 0 0.0998334 0" type="box" rgba="0.75294 0.75294 0.75294 1" class="collision"/>
+          <body name="FR_KNEE_LINK" pos="0 0 -0.2">
+            <inertial pos="0.00484121 0 -0.122269" quat="0.707051 0.00673184 0.00672643 0.707099" mass="0.270529" diaginertia="0.00247753 0.00243753 7.93221e-05"/>
+            <joint name="FAR_KNEE_JOINT" pos="0 0 0" axis="0 1 0" range="-2.723 -0.602"/>
+            <geom type="mesh"  rgba="0.49804 0.49804 0.49804 1" mesh="FR_KNEE_LINK" class="visual"/>
+            <geom size="0.01 0.01 0.07" pos="0.015 0 -0.05" quat="0.997551 0 -0.0699428 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom size="0.01 0.01 0.02" pos="0.028 0 -0.16" quat="0.997189 0 0.0749297 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom pos="0 0 -0.21366" quat="1 0 0 0" type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="FR_FOOT_LINK" class="visual"/>
+            <geom size="0.03" pos="0 0 -0.21366" quat="0.707107 0.707107 0 0" rgba="0.75294 0.75294 0.75294 1" class="foot"/>
+          </body>
+        </body>
+      </body>
+      <body name="RR_ABAD_LINK" pos="-0.17449 -0.062 0">
+        <inertial pos="0.0270745 0.0154588 9.41679e-06" quat="0.60017 0.600186 0.373798 0.373963" mass="0.454098" diaginertia="0.000562658 0.000541021 0.00017585"/>
+        <joint name="RAR_ABAD_JOINT" pos="0 0 0" axis="1 0 0" range="-0.4887 0.4887"/>
+        <geom type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="RR_ABAD_LINK" class="visual"/>
+        <body name="RR_HIP_LINK" pos="0 -0.0974 0">
+          <inertial pos="-0.00342445 0.0427303 -0.0223257" quat="0.964115 -0.259871 0.0534872 -0.00934672" mass="1.50799" diaginertia="0.00720259 0.00582228 0.00234676"/>
+          <joint name="RAR_HIP_JOINT" pos="0 0 0" axis="0 1 0" range="-1.1519 2.967"/>
+          <geom type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="RR_HIP_LINK" class="visual"/>
+          <geom size="0.02 0.01 0.1" pos="-0.01 0 -0.07" quat="0.995004 0 0.0998334 0" type="box" rgba="0.75294 0.75294 0.75294 1" class="collision"/>
+          <body name="RR_KNEE_LINK" pos="0 0 -0.2">
+            <inertial pos="0.00484121 0 -0.122269" quat="0.707051 0.00673184 0.00672643 0.707099" mass="0.270529" diaginertia="0.00247753 0.00243753 7.93221e-05"/>
+            <joint name="RAR_KNEE_JOINT" pos="0 0 0" axis="0 1 0" range="-2.723 -0.602"/>
+            <geom type="mesh"  rgba="0.49804 0.49804 0.49804 1" mesh="RR_KNEE_LINK" class="visual"/>
+            <geom size="0.01 0.01 0.07" pos="0.015 0 -0.05" quat="0.997551 0 -0.0699428 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom size="0.01 0.01 0.02" pos="0.028 0 -0.16" quat="0.997189 0 0.0749297 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom pos="0 0 -0.21366" quat="1 0 0 0" type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="RR_FOOT_LINK" class="visual"/>
+            <geom size="0.03" pos="0 0 -0.21366" quat="0.707107 0.707107 0 0" rgba="0.75294 0.75294 0.75294 1" class="foot"/>
+          </body>
+        </body>
+      </body>
+      <body name="RL_ABAD_LINK" pos="-0.17449 0.062 0">
+        <inertial pos="0.0270745 -0.0154588 -9.41679e-06" quat="0.373798 0.373963 0.60017 0.600186" mass="0.454098" diaginertia="0.000562658 0.000541021 0.00017585"/>
+        <joint name="RBL_ABAD_JOINT" pos="0 0 0" axis="1 0 0" range="-0.4887 0.4887"/>
+        <geom type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="RL_ABAD_LINK" class="visual"/>
+        <body name="RL_HIP_LINK" pos="0 0.097412 0">
+          <inertial pos="-0.00334388 -0.042909 -0.0216077" quat="0.961876 0.267908 0.0543528 0.00804932" mass="1.50165" diaginertia="0.00700226 0.00563861 0.0023263"/>
+          <joint name="RBL_HIP_JOINT" pos="0 0 0" axis="0 1 0" range="-1.1519 2.967"/>
+          <geom type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="RL_HIP_LINK" class="visual"/>
+          <geom size="0.02 0.01 0.1" pos="-0.01 0 -0.07" quat="0.995004 0 0.0998334 0" type="box" rgba="0.75294 0.75294 0.75294 1" class="collision"/>
+          <body name="RL_KNEE_LINK" pos="0 0 -0.2">
+            <inertial pos="0.00484121 0 -0.122269" quat="0.707051 0.00673184 0.00672643 0.707099" mass="0.270529" diaginertia="0.00247753 0.00243753 7.93221e-05"/>
+            <joint name="RBL_KNEE_JOINT" pos="0 0 0" axis="0 1 0" range="-2.723 -0.602"/>
+            <geom type="mesh"  rgba="0.49804 0.49804 0.49804 1" mesh="RL_KNEE_LINK" class="visual"/>
+            <geom size="0.01 0.01 0.07" pos="0.015 0 -0.05" quat="0.997551 0 -0.0699428 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom size="0.01 0.01 0.02" pos="0.028 0 -0.16" quat="0.997189 0 0.0749297 0" type="box" rgba="0.49804 0.49804 0.49804 1" class="collision"/>
+            <geom pos="0 0 -0.21366" quat="1 0 0 0" type="mesh"  rgba="0.75294 0.75294 0.75294 1" mesh="RL_FOOT_LINK" class="visual"/>
+            <geom size="0.03" pos="0 0 -0.21366" quat="0.707107 0.707107 0 0" rgba="0.75294 0.75294 0.75294 1" class="foot"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- <actuator>
+    <position name="FAR_ABAD_JOINT" joint="FAR_ABAD_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="FAR_HIP_JOINT" joint="FAR_HIP_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="FAR_KNEE_JOINT" joint="FAR_KNEE_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="FBL_ABAD_JOINT" joint="FBL_ABAD_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="FBL_HIP_JOINT" joint="FBL_HIP_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="FBL_KNEE_JOINT" joint="FBL_KNEE_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="RAR_ABAD_JOINT" joint="RAR_ABAD_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="RAR_HIP_JOINT" joint="RAR_HIP_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="RAR_KNEE_JOINT" joint="RAR_KNEE_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="RBL_ABAD_JOINT" joint="RBL_ABAD_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="RBL_HIP_JOINT" joint="RBL_HIP_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+    <position name="RBL_KNEE_JOINT" joint="RBL_KNEE_JOINT" kp="20" kv="0.7" forcerange="-23.5 23.5" />
+  </actuator> -->
+
+  <!-- 力矩控制：使用 <motor>，Python 端自己做 PD。 -->
+  <actuator>
+    <motor name="FAR_ABAD_JOINT" joint="FAR_ABAD_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="FAR_HIP_JOINT"  joint="FAR_HIP_JOINT"  ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="FAR_KNEE_JOINT" joint="FAR_KNEE_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="FBL_ABAD_JOINT" joint="FBL_ABAD_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="FBL_HIP_JOINT"  joint="FBL_HIP_JOINT"  ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="FBL_KNEE_JOINT" joint="FBL_KNEE_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="RAR_ABAD_JOINT" joint="RAR_ABAD_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="RAR_HIP_JOINT"  joint="RAR_HIP_JOINT"  ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="RAR_KNEE_JOINT" joint="RAR_KNEE_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="RBL_ABAD_JOINT" joint="RBL_ABAD_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="RBL_HIP_JOINT"  joint="RBL_HIP_JOINT"  ctrllimited="true" ctrlrange="-28 28" />
+    <motor name="RBL_KNEE_JOINT" joint="RBL_KNEE_JOINT" ctrllimited="true" ctrlrange="-28 28" />
+  </actuator>
+
+  <sensor>
+    <jointpos name="FAR_ABAD_JOINT_POS" joint="FAR_ABAD_JOINT" />
+    <jointpos name="FAR_HIP_JOINT_POS" joint="FAR_HIP_JOINT" />
+    <jointpos name="FAR_KNEE_JOINT_POS" joint="FAR_KNEE_JOINT" />
+    <jointpos name="FBL_ABAD_JOINT_POS" joint="FBL_ABAD_JOINT" />
+    <jointpos name="FBL_HIP_JOINT_POS" joint="FBL_HIP_JOINT" />
+    <jointpos name="FBL_KNEE_JOINT_POS" joint="FBL_KNEE_JOINT" />
+    <jointpos name="RAR_ABAD_JOINT_POS" joint="RAR_ABAD_JOINT" />
+    <jointpos name="RAR_HIP_JOINT_POS" joint="RAR_HIP_JOINT" />
+    <jointpos name="RAR_KNEE_JOINT_POS" joint="RAR_KNEE_JOINT" />
+    <jointpos name="RBL_ABAD_JOINT_POS" joint="RBL_ABAD_JOINT" />
+    <jointpos name="RBL_HIP_JOINT_POS" joint="RBL_HIP_JOINT" />
+    <jointpos name="RBL_KNEE_JOINT_POS" joint="RBL_KNEE_JOINT" />
+
+    <jointvel name="FAR_ABAD_JOINT_VEL" joint="FAR_ABAD_JOINT" />
+    <jointvel name="FAR_HIP_JOINT_VEL" joint="FAR_HIP_JOINT" />
+    <jointvel name="FAR_KNEE_JOINT_VEL" joint="FAR_KNEE_JOINT" />
+    <jointvel name="FBL_ABAD_JOINT_VEL" joint="FBL_ABAD_JOINT" />
+    <jointvel name="FBL_HIP_JOINT_VEL" joint="FBL_HIP_JOINT" />
+    <jointvel name="FBL_KNEE_JOINT_VEL" joint="FBL_KNEE_JOINT" />
+    <jointvel name="RAR_ABAD_JOINT_VEL" joint="RAR_ABAD_JOINT" />
+    <jointvel name="RAR_HIP_JOINT_VEL" joint="RAR_HIP_JOINT" />
+    <jointvel name="RAR_KNEE_JOINT_VEL" joint="RAR_KNEE_JOINT" />
+    <jointvel name="RBL_ABAD_JOINT_VEL" joint="RBL_ABAD_JOINT" />
+    <jointvel name="RBL_HIP_JOINT_VEL" joint="RBL_HIP_JOINT" />
+    <jointvel name="RBL_KNEE_JOINT_VEL" joint="RBL_KNEE_JOINT" />
+
+    <jointactuatorfrc name="FAR_ABAD_TORQUE" joint="FAR_ABAD_JOINT" noise="0.01" />
+    <jointactuatorfrc name="FAR_HIP_TORQUE" joint="FAR_HIP_JOINT" noise="0.01" />
+    <jointactuatorfrc name="FAR_KNEE_TORQUE" joint="FAR_KNEE_JOINT" noise="0.01" />
+    <jointactuatorfrc name="FBL_ABAD_TORQUE" joint="FBL_ABAD_JOINT" noise="0.01" />
+    <jointactuatorfrc name="FBL_HIP_TORQUE" joint="FBL_HIP_JOINT" noise="0.01" />
+    <jointactuatorfrc name="FBL_KNEE_TORQUE" joint="FBL_KNEE_JOINT" noise="0.01" />
+    <jointactuatorfrc name="RAR_ABAD_TORQUE" joint="RAR_ABAD_JOINT" noise="0.01" />
+    <jointactuatorfrc name="RAR_HIP_TORQUE" joint="RAR_HIP_JOINT" noise="0.01" />
+    <jointactuatorfrc name="RAR_KNEE_TORQUE" joint="RAR_KNEE_JOINT" noise="0.01" />
+    <jointactuatorfrc name="RBL_ABAD_TORQUE" joint="RBL_ABAD_JOINT" noise="0.01" />
+    <jointactuatorfrc name="RBL_HIP_TORQUE" joint="RBL_HIP_JOINT" noise="0.01" />
+    <jointactuatorfrc name="RBL_KNEE_TORQUE" joint="RBL_KNEE_JOINT" noise="0.01" />
+
+
+    <framequat name="imu_quat" objtype="site" objname="imu" noise="0.0" />
+    <gyro name="imu_gyro" site="imu" noise="0.0" />
+    <accelerometer name="imu_acc" site="imu" />
+
+    <framepos name="frame_pos" objtype="site" objname="imu" />
+    <framelinvel name="frame_vel" objtype="site" objname="imu" />
+  </sensor>
+</mujoco>

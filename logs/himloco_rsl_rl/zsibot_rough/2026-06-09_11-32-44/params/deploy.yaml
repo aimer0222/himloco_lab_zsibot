@@ -1,0 +1,61 @@
+use_encoder: true
+history_length: 6
+joint_ids_map: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+joint_names: [FAR_ABAD_JOINT, FBL_ABAD_JOINT, RAR_ABAD_JOINT, RBL_ABAD_JOINT, FAR_HIP_JOINT,
+  FBL_HIP_JOINT, RAR_HIP_JOINT, RBL_HIP_JOINT, FAR_KNEE_JOINT, FBL_KNEE_JOINT, RAR_KNEE_JOINT,
+  RBL_KNEE_JOINT]
+step_dt: 0.02
+stiffness: [20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0]
+damping: [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7]
+default_joint_pos: [0.0, 0.0, 0.0, 0.0, 0.8, 0.8, 0.8, 0.8, -1.5, -1.5, -1.5, -1.5]
+commands:
+  base_velocity:
+    ranges:
+      lin_vel_x: [-1, 1]
+      lin_vel_y: [-1.0, 1.0]
+      ang_vel_z: [-2.0, 2.0]
+      heading: !!python/tuple [-3.141592653589793, 3.141592653589793]
+actions:
+  JointPositionAction:
+    clip:
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    - [-100.0, 100.0]
+    joint_names: [.*]
+    scale: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25]
+    offset: [0.0, 0.0, 0.0, 0.0, 0.8, 0.8, 0.8, 0.8, -1.5, -1.5, -1.5, -1.5]
+    joint_ids: null
+observations:
+  velocity_commands:
+    params: {command_name: base_velocity}
+    clip: [-100, 100]
+    scale: [1.0, 1.0, 1.0]
+  base_ang_vel:
+    params: {}
+    clip: [-100, 100]
+    scale: [0.25, 0.25, 0.25]
+  projected_gravity:
+    params: {}
+    clip: [-100, 100]
+    scale: [1.0, 1.0, 1.0]
+  joint_pos_rel:
+    params: {}
+    clip: [-100, 100]
+    scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  joint_vel_rel:
+    params: {}
+    clip: [-100, 100]
+    scale: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+  last_action:
+    params: {}
+    clip: [-100, 100]
+    scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
