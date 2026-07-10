@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-本项目是基于 **HimLoco** 算法的四足机器人步态控制器，代码参考 **HimLoco_lab**项目进行开发 ，使用 **Isaac Lab** 进行强化学习训练，并支持 **Mujoco Sim2Sim** 验证和 **Sim2Real** 真机部署。
+本项目是基于 **HimLoco** 算法的四足机器人步态控制器，代码参考 **HimLoco_lab**项目进行开发 ，使用 **Isaac Lab** 进行强化学习训练，并支持 **Mujoco Sim2Sim** 验证。
 
 针对 **ZsiBot (ZSL1)** 机器人模型进行了适配和优化。
 
@@ -49,12 +49,11 @@ himloco_lab/
     │   ├── xml/                          #Mujoco XML 场景文件
     │   ├── urdf/                         #Mujoco URDF 文件
     │   └── meshes/                       # 网格文件
-    ├── mujoco_sim2sim/                   # Sim2Sim 推理脚本
-    │   ├── sim2sim_zsibot.py             # 位置控制
-    │   ├── sim2sim_zsibot_torque.py     # 力矩控制
-    │   └── torque_controller.py           # 力矩控制器
-    └── deploy/
-        └── lowlevel_state_machine_himloco.py  # 真机部署控制器(不能直接运行)
+    └── mujoco_sim2sim/                   # Sim2Sim 推理脚本
+        ├── sim2sim_zsibot.py             # 位置控制
+        ├── sim2sim_zsibot_torque.py     # 力矩控制
+        └── torque_controller.py           # 力矩控制器
+    
 
 
 ```
@@ -166,10 +165,6 @@ Mujoco 模型位于 `zsibot_mujoco/robot/zsl1_description/xml/`：
 - `zsibot_scene.xml` - 基础场景
 - `zsibot_scene_torque.xml` - 力矩控制场景
 - `zsibot_floating_stairs_gen.xml` - 带楼梯的场景
-
-## Sim2Real 部署
-
-详情见真机部署的README文档
 
 ## 参考资源
 
