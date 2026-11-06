@@ -1,0 +1,98 @@
+{
+  "reference_urdf": "../urdf/zsl1_inspection.urdf",
+  "translation_unit": "m",
+  "rotation_unit": "rad",
+  "calibration": "CAD estimate and nominal optical offsets",
+  "fixed_transforms": [
+    {
+      "joint": "PAYLOAD_HOUSING_JOINT",
+      "parent": "BASE_LINK",
+      "child": "PAYLOAD_HOUSING",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rpy": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "joint": "MID360_LINK_JOINT",
+      "parent": "BASE_LINK",
+      "child": "MID360_LINK",
+      "xyz": [
+        0.185999983,
+        -1.2e-08,
+        0.099940028
+      ],
+      "rpy": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "joint": "D435_LINK_JOINT",
+      "parent": "BASE_LINK",
+      "child": "D435_LINK",
+      "xyz": [
+        0.254498335,
+        -1.2e-08,
+        0.089970042
+      ],
+      "rpy": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "joint": "MID360_SCAN_JOINT",
+      "parent": "MID360_LINK",
+      "child": "MID360_SCAN",
+      "xyz": [
+        0.0,
+        0.0,
+        0.047
+      ],
+      "rpy": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "joint": "D435_DEPTH_OPTICAL_FRAME_JOINT",
+      "parent": "D435_LINK",
+      "child": "D435_DEPTH_OPTICAL_FRAME",
+      "xyz": [
+        0.008212,
+        0.0175,
+        0.0
+      ],
+      "rpy": [
+        -1.570796327,
+        0.0,
+        -1.570796327
+      ]
+    },
+    {
+      "joint": "D435_COLOR_OPTICAL_FRAME_JOINT",
+      "parent": "D435_LINK",
+      "child": "D435_COLOR_OPTICAL_FRAME",
+      "xyz": [
+        0.008212,
+        0.0325,
+        0.0
+      ],
+      "rpy": [
+        -1.570796327,
+        0.0,
+        -1.570796327
+      ]
+    }
+  ]
+}

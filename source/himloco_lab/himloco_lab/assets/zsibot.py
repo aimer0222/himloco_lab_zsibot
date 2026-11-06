@@ -103,3 +103,15 @@ ZSIBOT_ZSL1_CFG = ArticulationCfg(
     },
 )
 """Configuration of ZsiBot ZSL1 robot."""
+
+
+ZSIBOT_ZSL1_GML_CFG = ZSIBOT_ZSL1_CFG.replace(
+    spawn=ZSIBOT_ZSL1_CFG.spawn.replace(
+        asset_path=f"{DIRECTORY}/robot/zsl1_gml/urdf/zsl1_inspection.urdf",
+    ),
+)
+"""Configuration of the ZsiBot ZSL1 GML inspection platform.
+
+The GML platform keeps the same leg actuators, initial joint state, and control
+parameters as :data:`ZSIBOT_ZSL1_CFG`. Only the robot description is replaced.
+"""

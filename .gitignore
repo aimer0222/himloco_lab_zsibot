@@ -8,6 +8,7 @@
 # Ignore all other files
 .python.env
 *.json
+!source/himloco_lab/himloco_lab/robot/zsl1_gml/configuration/payload_extrinsics.json
 
 # Python
 __pycache__/

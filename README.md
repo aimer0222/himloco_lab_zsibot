@@ -4,7 +4,7 @@
 
 本项目是基于 **HimLoco** 算法的四足机器人步态控制器，代码参考 **HimLoco_lab**项目进行开发 ，使用 **Isaac Lab** 进行强化学习训练，并支持 **Mujoco Sim2Sim** 验证。
 
-针对 **ZsiBot (ZSL1)** 机器人模型进行了适配和优化。
+针对 **ZsiBot (ZSL1)** 机器人模型进行了适配和优化，并提供加入机械臂、激光雷达、深度相机及外壳后的 **ZSL1 GML 巡检平台**任务。
 
 ## 项目结构
 
@@ -25,7 +25,8 @@ himloco_lab/
 │       ├── tasks/
 │       │   └── locomotion/
 │       │       ├── mdp/                  # 观测、动作、奖励、终止项
-│       │       └── robots/zsibot/        # ZsiBot 训练配置
+│       │       ├── robots/zsibot/        # ZsiBot 训练配置
+│       │       └── robots/zsibot_gml/    # ZSL1 GML 巡检平台训练配置
 │       │
 │       ├── rsl_rl/                       # HimLoco 算法实现
 │       │   ├── config/                   # 算法配置
@@ -40,6 +41,10 @@ himloco_lab/
 │       ├── robot/zsl1_description/       # ZSL1 机器人描述文件
 │       │   ├── urdf/                     # URDF 文件
 │       │   └── meshes/                   # STL 网格文件
+│       ├── robot/zsl1_gml/               # ZSL1 GML 巡检平台描述文件
+│       │   ├── urdf/                     # 带载荷平台的 URDF 文件
+│       │   ├── meshes/                   # 本体及载荷 STL 网格文件
+│       │   └── configuration/            # 载荷外参及导入说明
 │       │
 │       └── utils/
 │           └── export_policy.py          # JIT 和 ONNX 导出工具
@@ -89,8 +94,9 @@ python -m pip install -e source/himloco_lab
 
 ### 4. 依赖说明
 
-本项目使用内置的 ZSL1 机器人描述文件；
+本项目使用内置的 ZSL1 机器人描述文件：
 - URDF 文件位于 `source/himloco_lab/himloco_lab/robot/zsl1_description/`
+- ZSL1 GML 巡检平台 URDF 位于 `source/himloco_lab/himloco_lab/robot/zsl1_gml/urdf/zsl1_inspection.urdf`
 
 ## 快速开始
 
@@ -102,12 +108,63 @@ python -m pip install -e source/himloco_lab
 python scripts/himloco_rsl_rl/train.py --task ZsiBot-Velocity --headless
 ```
 
+在 ZSL1 GML 巡检平台上从头训练：
+
+```bash
+python scripts/himloco_rsl_rl/train.py --task ZsiBot-GML-Velocity --headless
+```
+
+`ZsiBot-GML-Velocity` 继承原 `ZsiBot-Velocity` 的地形、观测、动作、奖励、随机化、控制参数和 PPO 配置，仅将机器人资产替换为 `zsl1_gml/urdf/zsl1_inspection.urdf`。腿部仍为相同的 12 个控制关节，因此策略的输入、输出维度与原任务一致。
+
+### 基于原 ZSL1 模型续训练
+
+原任务和 GML 任务都使用 `logs/himloco_rsl_rl/zsibot_rough/` 作为实验目录，可以直接将原 ZSL1 checkpoint 加载到 GML 任务继续训练：
+
+```bash
+python scripts/himloco_rsl_rl/train.py \
+  --task ZsiBot-GML-Velocity \
+  --headless \
+  --resume \
+  --load_run 2026-06-24_16-03-13 \
+  --checkpoint model_18799.pt \
+  --run_name zsl1_gml_finetune
+```
+
+请将示例中的 `--load_run` 替换为原模型所在的运行目录名，将 `--checkpoint` 替换为该目录中的 checkpoint 文件名。续训练结果会写入新的时间戳目录，不会覆盖原 checkpoint。可以用下面的命令查看已有模型：
+
+```bash
+find logs/himloco_rsl_rl/zsibot_rough -maxdepth 2 -name 'model_*.pt' | sort
+```
+
 ### 推理和播放
 
 运行已训练的策略进行批量推理：
 
 ```bash
 python scripts/himloco_rsl_rl/play.py --task ZsiBot-Velocity-Play
+```
+
+播放 GML 任务最近一次训练得到的策略：
+
+```bash
+python scripts/himloco_rsl_rl/play.py --task ZsiBot-GML-Velocity-Play
+```
+
+`ZsiBot-GML-Velocity-Play` 可以直接使用原 ZSL1 任务训练得到的模型。下面的命令使用原 ZSL1 运行目录 `2026-06-24_16-03-13` 中的 `model_18799.pt` 在 GML 巡检平台上播放，该组合已经验证兼容：
+
+```bash
+python scripts/himloco_rsl_rl/play.py \
+  --task ZsiBot-GML-Velocity-Play \
+  --load_run 2026-06-24_16-03-13 \
+  --checkpoint model_18799.pt
+```
+
+也可以使用 checkpoint 的完整路径：
+
+```bash
+python scripts/himloco_rsl_rl/play.py \
+  --task ZsiBot-GML-Velocity-Play \
+  --checkpoint /home/ws/nvidia/himloco_lab_zsibot/logs/himloco_rsl_rl/zsibot_rough/2026-06-24_16-03-13/model_18799.pt
 ```
 
 ### 交互式控制
@@ -124,6 +181,12 @@ python scripts/himloco_rsl_rl/play_interactive.py --task ZsiBot-Velocity-Play
 #   Numpad 6 / →   : 向右平移
 #   Numpad 7 / Z   : 逆时针旋转
 #   Numpad 9 / X   : 顺时针旋转
+```
+
+GML 巡检平台的交互式播放命令为：
+
+```bash
+python scripts/himloco_rsl_rl/play_interactive.py --task ZsiBot-GML-Velocity-Play
 ```
 
 ### 模型导出

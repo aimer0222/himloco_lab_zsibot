@@ -177,7 +177,13 @@ def main(env_cfg: ManagerBasedRLEnvCfg, agent_cfg: HIMOnPolicyRunnerCfg):
     print(f"[INFO] Loading experiment from directory: {log_root_path}")
     
     # get checkpoint path
-    if args_cli.checkpoint:
+    # A bare checkpoint name together with --load_run is resolved inside that
+    # run directory. Paths (absolute or relative) keep the existing direct-file
+    # behavior supported by retrieve_file_path().
+    checkpoint_is_bare_name = args_cli.checkpoint and os.path.basename(args_cli.checkpoint) == args_cli.checkpoint
+    if checkpoint_is_bare_name and args_cli.load_run is not None:
+        resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
+    elif args_cli.checkpoint:
         resume_path = retrieve_file_path(args_cli.checkpoint)
     else:
         resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
